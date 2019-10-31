@@ -2,13 +2,13 @@
   <mat-card class="orders-grid">
     <div class="name-input-container">
       <span class="input-label">Order For:</span>
-      <input type="text" class="form-control" placeholder="Last name, First name">
+      <input [(ngModel)]="name" type="text" class="form-control" placeholder="Last name, First name">
     </div>
     <mat-toolbar class="action-bar" color="accent">
       <div class="align-right">
-        <button mat-raised-button>Add Hot Dog</button>
-        <button mat-raised-button>Add Hamberger</button>
-        <button mat-raised-button>Add Pizza</button>
+        <button mat-raised-button (click)="addItem('hot dog')">Add Hot Dog</button>
+        <button mat-raised-button (click)="addItem('hamberger')">Add Hamberger</button>
+        <button mat-raised-button (click)="addItem('pizza')">Add Pizza</button>
       </div>
     </mat-toolbar>
     <div class="table-grid">
@@ -27,21 +27,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let order of orders; let i = index">
             <td><img class="item-image" [src]="order.image" alt="img"></td>
-            <td><input type="text" class="form-control" placeholder="PID"></td>
-            <td><input type="text" class="form-control" placeholder="Description"></td>
-            <td><input type="text" class="form-control" placeholder="Price"></td>
-            <td><input type="text" class="form-control" placeholder="Quantity"></td>
-            <td><button mat-raised-button color="primary" color="accent"><mat-icon>delete</mat-icon></button></td>
+            <td><input [(ngModel)]="order.pid" type="text" class="form-control" placeholder="PID"></td>
+            <td><input [(ngModel)]="order.description" type="text" class="form-control" placeholder="Description"></td>
+            <td><input [(ngModel)]="order.price" type="text" class="form-control" placeholder="Price"></td>
+            <td><input [(ngModel)]="order.quantity" type="text" class="form-control" placeholder="Quantity"></td>
+            <td><button (click)="delete(i)" mat-raised-button color="primary" color="accent"><mat-icon>delete</mat-icon></button></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="action-container">
-      <button mat-raised-button color="primary">Load Saved Items</button>
-      <button mat-raised-button color="primary">Clear</button>
-      <button mat-raised-button color="primary">Submit</button>
+      <button mat-raised-button color="primary" (click)="readFile()">Load Saved Items</button>
+      <button mat-raised-button color="primary" (click)="clear()">Clear</button>
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
     </div>
   </mat-card>
 </div>
